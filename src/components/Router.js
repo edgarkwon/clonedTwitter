@@ -7,7 +7,7 @@ import Navigation from "components/Navigation";
 
 const AppRouter = ({ refreshUser, isLoggedIn, userObj }) => {
   return (
-    <HashRouter>
+    <HashRouter base="/">
       {isLoggedIn && <Navigation userObj={userObj} />}
       <Routes>
         {isLoggedIn ? (
