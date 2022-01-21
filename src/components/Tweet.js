@@ -1,9 +1,11 @@
 import React, { useState } from "react";
-import { dbService } from "fbase";
+import { dbService, storageService } from "fbase";
 import { doc, deleteDoc, updateDoc } from "firebase/firestore";
+import { deleteObject, ref } from "firebase/storage";
 
 const Tweet = ({ tweetObj, isOwner }) => {
   const tweetDocRef = doc(dbService, "tweets", `${tweetObj.id}`);
+  const tweetUrlRef = ref(storageService, tweetObj.attachmentUrl);
   const [editing, setEditing] = useState(false);
   const [newTweet, setNewTweet] = useState(tweetObj.text);
 
@@ -11,6 +13,7 @@ const Tweet = ({ tweetObj, isOwner }) => {
     const ok = window.confirm("Are you sure you want to delete this tweet?");
     if (ok) {
       await deleteDoc(tweetDocRef);
+      await deleteObject(tweetUrlRef);
     }
   };
 
@@ -30,7 +33,12 @@ const Tweet = ({ tweetObj, isOwner }) => {
         <>
           <h4>{tweetObj.text}</h4>
           {tweetObj.attachmentUrl && (
-            <img src={tweetObj.attachmentUrl} width="50px" height="50px" />
+            <img
+              src={tweetObj.attachmentUrl}
+              alt={tweetObj.text}
+              width="50px"
+              height="50px"
+            />
           )}
           {isOwner && (
             <>
@@ -52,7 +60,12 @@ const Tweet = ({ tweetObj, isOwner }) => {
         <>
           <h4>{tweetObj.text}</h4>
           {tweetObj.attachmentUrl && (
-            <img src={tweetObj.attachmentUrl} width="50px" height="50px" />
+            <img
+              src={tweetObj.attachmentUrl}
+              alt={tweetObj.text}
+              width="50px"
+              height="50px"
+            />
           )}
           {isOwner && (
             <>
