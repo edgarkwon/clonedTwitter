@@ -1,3 +1,3 @@
 https://edgarkwon.github.io/clonedTwitter/
 
-nomadcoder: create-react-app, firebase (auth, CRUD)
+create-react-app, firebase (auth, CRUD)
