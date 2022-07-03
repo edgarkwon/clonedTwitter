@@ -1,10 +1,13 @@
 {
   "files": {
-    "main.js": "/clonedTwitter/static/js/main.a2d325ce.js",
-    "index.html": "/clonedTwitter/index.html",
-    "main.a2d325ce.js.map": "/clonedTwitter/static/js/main.a2d325ce.js.map"
+    "main.css": "/nnft/static/css/main.61de1e49.css",
+    "main.js": "/nnft/static/js/main.b8e28b90.js",
+    "index.html": "/nnft/index.html",
+    "main.61de1e49.css.map": "/nnft/static/css/main.61de1e49.css.map",
+    "main.b8e28b90.js.map": "/nnft/static/js/main.b8e28b90.js.map"
   },
   "entrypoints": [
-    "static/js/main.a2d325ce.js"
+    "static/css/main.61de1e49.css",
+    "static/js/main.b8e28b90.js"
   ]
 }
