@@ -1,10 +1,8 @@
 import AuthForm from "components/AuthForm";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import {
-  faTwitter,
-  faGoogle,
-  faGithub,
-} from "@fortawesome/free-brands-svg-icons";
+import { faGoogle, faGithub } from "@fortawesome/free-brands-svg-icons";
+import { faCertificate } from "@fortawesome/free-solid-svg-icons";
+
 import { authService } from "fbase";
 import {
   signInWithPopup,
@@ -27,7 +25,7 @@ const Auth = () => {
   return (
     <div className="container">
       <FontAwesomeIcon
-        icon={faTwitter}
+        icon={faCertificate}
         color={"#04AAFF"}
         size="3x"
         style={{ marginBottom: 30 }}

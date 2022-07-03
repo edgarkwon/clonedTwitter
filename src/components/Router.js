@@ -4,6 +4,8 @@ import Auth from "routes/Auth";
 import Home from "routes/Home";
 import Profile from "routes/Profile";
 import Navigation from "components/Navigation";
+import Mint from "routes/Mint";
+import About from "routes/About";
 
 const AppRouter = ({ refreshUser, isLoggedIn, userObj }) => {
   return (
@@ -22,7 +24,7 @@ const AppRouter = ({ refreshUser, isLoggedIn, userObj }) => {
         <Routes>
           {isLoggedIn ? (
             <>
-              <Route exact path="/" element={<Home userObj={userObj} />} />
+              <Route path="/*" element={<Home userObj={userObj} />} />
               <Route
                 exact
                 path="/profile"
@@ -30,6 +32,8 @@ const AppRouter = ({ refreshUser, isLoggedIn, userObj }) => {
                   <Profile userObj={userObj} refreshUser={refreshUser} />
                 }
               />
+              <Route path="/about" element={<About userObj={userObj} />} />
+              <Route path="mint/:id" element={<Mint userObj={userObj} />} />
             </>
           ) : (
             <Route path="/" element={<Auth />} />

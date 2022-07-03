@@ -8,6 +8,8 @@ import { faPlus, faTimes } from "@fortawesome/free-solid-svg-icons";
 
 const TweetFactory = ({ userObj }) => {
   const [tweet, setTweet] = useState("");
+  const [count, setCount] = useState("");
+  const [desc, setDesc] = useState("");
   const [attachment, setAttachment] = useState("");
 
   const onSubmit = async (event) => {
@@ -24,19 +26,32 @@ const TweetFactory = ({ userObj }) => {
     }
     const tweetObj = {
       text: tweet,
+      number: count,
       createdAt: Date.now(),
-      creatorId: userObj.uid,
+      creatorEmail: userObj.email,
+      creatorName: userObj.displayName,
       attachmentUrl,
+      desc,
+      owners: [],
+      ownersId: [],
     };
     await addDoc(collection(dbService, "tweets"), tweetObj);
     setTweet("");
     setAttachment("");
+    setCount("");
+    setDesc("");
   };
   const onChange = (event) => {
     const {
-      target: { value },
+      target: { name, value },
     } = event;
-    setTweet(value);
+    if (name === "title") {
+      setTweet(value);
+    } else if (name === "count") {
+      setCount(value);
+    } else if (name === "desc") {
+      setDesc(value);
+    }
   };
   const onFileChange = (event) => {
     const {
@@ -58,17 +73,37 @@ const TweetFactory = ({ userObj }) => {
       <div className="factoryInput__container">
         <input
           value={tweet}
+          name="title"
           onChange={onChange}
           type="text"
-          placeholder="What's on your mind?"
-          maxLength={120}
+          placeholder="*NNFT title"
+          maxLength={40}
           className="factoryInput__input"
           required
         />
-        <input type="submit" value="&rarr;" className="factoryInput__arrow" />
+        <input
+          value={count}
+          name="count"
+          onChange={onChange}
+          type="number"
+          min="1"
+          max="100"
+          placeholder="*Number of NNFT (1~100)"
+          className="factoryInput__input"
+          required
+        />
+        <input
+          value={desc}
+          name="desc"
+          onChange={onChange}
+          type="text"
+          maxLength={100}
+          placeholder="Describe it!"
+          className="factoryInput__input"
+        />
       </div>
       <label for="attach-file" className="factoryInput__label">
-        <span>Add photos</span>
+        <span>Add your NNFT image</span>
         <FontAwesomeIcon icon={faPlus} />
       </label>
       <input
@@ -79,6 +114,13 @@ const TweetFactory = ({ userObj }) => {
         style={{
           opacity: 0,
         }}
+        required
+      />
+      <input
+        style={{ cursor: "pointer" }}
+        type="submit"
+        value="CREATE"
+        className="factoryInput__arrow"
       />
 
       {attachment && (

@@ -4,6 +4,8 @@ import { doc, deleteDoc, updateDoc } from "firebase/firestore";
 import { deleteObject, ref } from "firebase/storage";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faTrash, faPencilAlt } from "@fortawesome/free-solid-svg-icons";
+import { Link, Routes, Route } from "react-router-dom";
+import Mint from "routes/Mint";
 
 const Tweet = ({ tweetObj, isOwner }) => {
   const tweetDocRef = doc(dbService, "tweets", `${tweetObj.id}`);
@@ -31,53 +33,16 @@ const Tweet = ({ tweetObj, isOwner }) => {
   };
   return (
     <div className="nweet">
-      {editing ? (
-        <>
-          <h4>{tweetObj.text}</h4>
-          {tweetObj.attachmentUrl && (
-            <img
-              src={tweetObj.attachmentUrl}
-              alt={tweetObj.text}
-              width="50px"
-              height="50px"
-            />
-          )}
-          {isOwner && (
-            <>
-              <form onSubmit={onSubmit} className="container nweetEdit">
-                <input
-                  type="text"
-                  placeholder="Edit your tweet"
-                  value={newTweet}
-                  onChange={onChange}
-                  autoFocus
-                  className="formInput"
-                  required
-                />
-                <input type="submit" value="Update Tweet" className="formBtn" />
-              </form>
-              <span onClick={toggleEditing} className="formBtn cancelBtn">
-                Cancel
-              </span>
-            </>
-          )}
-        </>
-      ) : (
-        <>
-          <h4>{tweetObj.text}</h4>
-          {tweetObj.attachmentUrl && <img src={tweetObj.attachmentUrl} />}
-          {isOwner && (
-            <div class="nweet__actions">
-              <span onClick={onDeleteClick}>
-                <FontAwesomeIcon icon={faTrash} />
-              </span>
-              <span onClick={toggleEditing}>
-                <FontAwesomeIcon icon={faPencilAlt} />
-              </span>
-            </div>
-          )}
-        </>
-      )}
+      <Link
+        to={{
+          pathname: `/mint/${tweetObj.id}`,
+        }}
+      >
+        <h4>
+          {tweetObj.text}: {tweetObj.numOwners}/{tweetObj.number}
+        </h4>
+        <img src={tweetObj.attachmentUrl} />
+      </Link>
     </div>
   );
 };

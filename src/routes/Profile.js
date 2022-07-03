@@ -1,6 +1,14 @@
+import Tweet from "components/Tweet";
 import { authService, dbService } from "fbase";
 import { signOut, updateProfile } from "firebase/auth";
-import { collection, query, where, orderBy, getDocs } from "firebase/firestore";
+import {
+  collection,
+  query,
+  where,
+  orderBy,
+  getDocs,
+  onSnapshot,
+} from "firebase/firestore";
 import React, { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 
@@ -12,20 +20,6 @@ const Profile = ({ userObj, refreshUser }) => {
     navigate("/");
   };
 
-  const getMyTweets = async () => {
-    const q = query(
-      collection(dbService, "tweets"),
-      orderBy("createdAt", "desc"),
-      where("creatorId", "==", `${userObj.uid}`)
-    );
-    const querySnapshot = await getDocs(q);
-    querySnapshot.forEach((doc) => {
-      console.log(doc.id, " => ", doc.data());
-    });
-  };
-  useEffect(() => {
-    getMyTweets();
-  }, []);
   const onChange = (event) => {
     const {
       target: { value },
@@ -41,6 +35,25 @@ const Profile = ({ userObj, refreshUser }) => {
       refreshUser();
     }
   };
+  const [myNNFTs, setMyNNFTs] = useState([]);
+  useEffect(() => {
+    onSnapshot(
+      query(
+        collection(dbService, "tweets"),
+        where("ownersId", "array-contains", `${userObj.uid}`),
+        orderBy("createdAt", "desc")
+      ),
+      (snapshot) => {
+        const myNNFTArray = snapshot.docs.map((doc) => ({
+          id: doc.id,
+          ...doc.data(),
+          numOwners: doc.data().owners?.length,
+        }));
+        setMyNNFTs(myNNFTArray);
+      }
+    );
+  }, []);
+
   return (
     <div className="container">
       <form onSubmit={onSubmit}>
@@ -61,6 +74,15 @@ const Profile = ({ userObj, refreshUser }) => {
       <span className="formBtn cancelBtn logOut" onClick={onLogOutClick}>
         Log Out
       </span>
+      <div style={{ marginTop: 30 }}>
+        {myNNFTs.map((tweet) => (
+          <Tweet
+            key={tweet.id}
+            tweetObj={tweet}
+            isOwner={tweet.creatorId === userObj.uid}
+          />
+        ))}
+      </div>
     </div>
   );
 };

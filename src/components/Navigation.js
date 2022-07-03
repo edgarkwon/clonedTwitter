@@ -1,22 +1,35 @@
 import React from "react";
 import { Link } from "react-router-dom";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faTwitter } from "@fortawesome/free-brands-svg-icons";
-import { faUser } from "@fortawesome/free-solid-svg-icons";
+import {
+  faUser,
+  faCertificate,
+  faQuestionCircle,
+} from "@fortawesome/free-solid-svg-icons";
 
 const Navigation = ({ userObj }) => (
   <nav>
     <ul style={{ display: "flex", justifyContent: "center", marginTop: 50 }}>
       <li>
-        <Link to="/" style={{ marginRight: 10 }}>
-          <FontAwesomeIcon icon={faTwitter} color={"#04AAFF"} size="2x" />
+        <Link
+          to="/"
+          style={{
+            marginRight: 30,
+            display: "flex",
+            flexDirection: "column",
+            alignItems: "center",
+            fontSize: 12,
+          }}
+        >
+          <FontAwesomeIcon icon={faCertificate} color={"#04AAFF"} size="2x" />
+          <span style={{ marginTop: 10 }}>NNFTs</span>
         </Link>
       </li>
       <li>
         <Link
           to="/profile"
           style={{
-            marginLeft: 10,
+            marginRight: 30,
             display: "flex",
             flexDirection: "column",
             alignItems: "center",
@@ -24,11 +37,25 @@ const Navigation = ({ userObj }) => (
           }}
         >
           <FontAwesomeIcon icon={faUser} color={"#04AAFF"} size="2x" />
-          <span style={{ marginTop: 10 }}>
-            {userObj.displayName
-              ? `${userObj.displayName}의 Profile`
-              : "Profile"}
-          </span>
+          <span style={{ marginTop: 10 }}>Profile</span>
+        </Link>
+      </li>
+      <li>
+        <Link
+          to="/about"
+          style={{
+            display: "flex",
+            flexDirection: "column",
+            alignItems: "center",
+            fontSize: 12,
+          }}
+        >
+          <FontAwesomeIcon
+            icon={faQuestionCircle}
+            color={"#04AAFF"}
+            size="2x"
+          />
+          <span style={{ marginTop: 10 }}>about</span>
         </Link>
       </li>
     </ul>
