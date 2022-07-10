@@ -63,10 +63,10 @@ const Mint = ({ userObj }) => {
 
       {ownersId.includes(userObj.uid) ? (
         <p className="you-have">
-          🚀 You've got a <span className="you-have-title">{title}</span>. Cool!
+          🚀 You've got a <span>{title}</span>. Cool!
         </p>
       ) : owners.length == number ? (
-        <p>sold out</p>
+        <p className="sold-out">sold out</p>
       ) : (
         <button onClick={onClick} className="mint-button">
           Mint your nnft (100% FREE)

@@ -21,7 +21,7 @@ const Navigation = ({ userObj }) => (
             fontSize: 12,
           }}
         >
-          <FontAwesomeIcon icon={faCertificate} color={"#04AAFF"} size="2x" />
+          <FontAwesomeIcon icon={faCertificate} color={"#e53935"} size="2x" />
           <span style={{ marginTop: 10 }}>NNFTs</span>
         </Link>
       </li>
@@ -36,7 +36,7 @@ const Navigation = ({ userObj }) => (
             fontSize: 12,
           }}
         >
-          <FontAwesomeIcon icon={faUser} color={"#04AAFF"} size="2x" />
+          <FontAwesomeIcon icon={faUser} color={"#e53935"} size="2x" />
           <span style={{ marginTop: 10 }}>Profile</span>
         </Link>
       </li>
@@ -52,7 +52,7 @@ const Navigation = ({ userObj }) => (
         >
           <FontAwesomeIcon
             icon={faQuestionCircle}
-            color={"#04AAFF"}
+            color={"#e53935"}
             size="2x"
           />
           <span style={{ marginTop: 10 }}>about</span>

@@ -68,7 +68,7 @@ const Profile = ({ userObj, refreshUser }) => {
           onChange={onChange}
           type="submit"
           value="Update Profile"
-          className="formBtn"
+          className="formBtn updateBtn"
         />
       </form>
       <span className="formBtn cancelBtn logOut" onClick={onLogOutClick}>
